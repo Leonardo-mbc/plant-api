@@ -1,29 +1,21 @@
-import {singleton} from '../decorators/singleton';
-import {requestStart, requestStop} from '../requester/motion-requester';
+import * as motionRequester from '../requester/motion-requester';
 
-@singleton
-class MotionAction {
-  constractor() {}
-
-  async startAction(req, res) {
+export const motionAction = {
+  startAction: async (req, res) => {
     try {
-      await requestStart();
+      await motionRequester.requestStart();
       res.sendStatus(200);
     } catch(e) {
       res.send(500, e);
     }
-  }
+  },
 
-  async stopAction(req, res) {
+  stopAction: async (req, res) => {
     try {
-      await requestStop();
+      await motionRequester.requestStop();
       res.sendStatus(200);
     } catch(e) {
       res.send(500, e);
     }
   }
 }
-
-module.exports = {
-  MotionAction
-};
