@@ -1,7 +1,8 @@
 import fetch from 'node-fetch';
 
-export async function post(url) {
+export async function post(url, body) {
   return await fetch(url, {
-    method: 'POST'
+    method: 'POST',
+    body: JSON.stringify(body)
   });
 }
