@@ -13,6 +13,7 @@ app.post('/motion/start', motionAction.start);
 app.post('/motion/stop', motionAction.stop);
 app.post('/light/turnOn', lightAction.turnOn);
 app.post('/light/turnOff', lightAction.turnOff);
+app.post('/light/turnOnWithGPS', lightAction.turnOnWithGPS);
 
 app.listen(port);
 console.log('[plant-api] start', 'port:', port);
