@@ -50,7 +50,7 @@ export async function existCheckAll(user, direction) {
 export async function existCheck(user) {
   try {
     const rows = await query('SELECT `exist-users`.`exist` as exist, `users`.`name` FROM `users` LEFT JOIN `exist-users` ON `exist-users`.`user-id` = `users`.`id` WHERE `users`.`name` = ?', [user]);  
-    if(ows[0].exist === 1) {
+    if(rows[0].exist === 1) {
       return true;
     } else {
       return false;
