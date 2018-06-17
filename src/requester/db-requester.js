@@ -4,6 +4,7 @@ import { database } from '../../configs/secret';
 
 const pool = mysql.createPool({
   host     : ENDPOINT.database,
+  port     : 3307,
   user     : database.user,
   password : database.password,
   database : 'plant-api',
