@@ -49,4 +49,26 @@ export const lightAction = {
       res.status(500).send(e);
     }
   },
+
+  forceTurnOn: async (req, res) => {
+    try {
+      await lightRequester.turnOn();
+      res.sendStatus(200);
+    } catch (e) {
+      console.error(e);
+      await sendConsole(`[ERROR] lightAction.forceTurnOn: ${e}`);
+      res.status(500).send(e);
+    }
+  },
+
+  forceTurnOff: async (req, res) => {
+    try {
+      await lightRequester.turnOff();
+      res.sendStatus(200);
+    } catch (e) {
+      console.error(e);
+      await sendConsole(`[ERROR] lightAction.forceTurnOff: ${e}`);
+      res.status(500).send(e);
+    }
+  },
 }
