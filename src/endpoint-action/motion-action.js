@@ -31,5 +31,27 @@ export const motionAction = {
       await sendConsole(`[ERROR] motionAction.stop: ${e}`);
       res.status(500).send(e);
     }
+  },
+
+  forceStart: async (req, res) => {
+    try {
+      await motionRequester.requestStart();
+      res.sendStatus(200);
+    } catch (e) {
+      console.error(e);
+      await sendConsole(`[ERROR] motionAction.forceStart: ${e}`);
+      res.status(500).send(e);
+    }
+  },
+
+  forceStop: async (req, res) => {
+    try {
+      await motionRequester.requestStop();
+      res.sendStatus(200);
+    } catch (e) {
+      console.error(e);
+      await sendConsole(`[ERROR] motionAction.forceStop: ${e}`);
+      res.status(500).send(e);
+    }
   }
 }
