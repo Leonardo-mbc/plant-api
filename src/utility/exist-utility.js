@@ -15,7 +15,7 @@ export async function existPush(user, direction) {
 
     case 'outgoing':
       try {
-        const a = await query('UPDATE `exist-users` INNER JOIN `users` ON `exist-users`.`user-id` = `users`.`id` SET `exist` = ? WHERE `users`.`name` = ?', [false, user]);
+        await query('UPDATE `exist-users` INNER JOIN `users` ON `exist-users`.`user-id` = `users`.`id` SET `exist` = ? WHERE `users`.`name` = ?', [false, user]);
       } catch (e) {
         console.error(e);
         await sendConsole(`[ERROR] existPush - outgoing: ${e}`);
@@ -25,26 +25,9 @@ export async function existPush(user, direction) {
 }
 
 
-export async function existCheckAll(user, direction) {
-  switch (direction) {
-    case 'incoming':
-      return true;
-      break;
-
-    case 'outgoing':
-      try {
-        const rows = await query('SELECT sum(`exist-users`.`exist`) as existNum FROM `users` LEFT JOIN `exist-users` ON `exist-users`.`user-id` = `users`.`id`', []);
-        if (rows[0].existNum === 0) {
-          return true;
-        } else {
-          return false;
-        }
-      } catch (e) {
-        console.error(e);
-        await sendConsole(`[ERROR] existCheckAll - outgoing: ${e}`);
-      }
-      break;
-  }
+export async function existCount() {
+  const rows = await query('SELECT sum(`exist-users`.`exist`) as existNum FROM `users` LEFT JOIN `exist-users` ON `exist-users`.`user-id` = `users`.`id`', []);
+  return rows[0].existNum;
 }
 
 export async function existCheck(user) {

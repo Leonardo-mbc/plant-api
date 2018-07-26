@@ -1,6 +1,6 @@
 import * as motionRequester from '../requester/motion-requester';
 import * as lightRequester from '../requester/light-requester';
-import { existPush, existCheckAll, existCheck } from '../utility/exist-utility';
+import { existPush, existCheck, existCount } from '../utility/exist-utility';
 import { sendConsole } from '../requester/console-requester';
 
 export const lightAction = {
@@ -8,7 +8,7 @@ export const lightAction = {
     try {
       const { user } = req.body;
       await existPush(user, 'incoming');
-      if (await existCheckAll(user, 'incoming')) {
+      if (1 <= await existCount()) {
         await lightRequester.turnOn();
       }
       res.sendStatus(200);
@@ -23,7 +23,7 @@ export const lightAction = {
     try {
       const { user } = req.body;
       await existPush(user, 'outgoing');
-      if (await existCheckAll(user, 'outgoing')) {
+      if (await existCount() === 0) {
         await lightRequester.turnOff();
       }
       res.sendStatus(200);

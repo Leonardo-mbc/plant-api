@@ -1,5 +1,5 @@
 import * as motionRequester from '../requester/motion-requester';
-import { existPush, existCheck } from '../utility/exist-utility';
+import { existPush, existCheckAll, existCount } from '../utility/exist-utility';
 import { sendConsole } from '../requester/console-requester';
 
 export const motionAction = {
@@ -7,7 +7,7 @@ export const motionAction = {
     try {
       const { user } = req.body;
       await existPush(user, 'outgoing');
-      if (await existCheck(user, 'outgoing')) {
+      if (await existCount() === 0) {
         await motionRequester.requestStart();
       }
       res.sendStatus(200);
@@ -22,7 +22,7 @@ export const motionAction = {
     try {
       const { user } = req.body;
       await existPush(user, 'incoming');
-      if (await existCheck(user, 'incoming')) {
+      if (1 <= await existCount()) {
         await motionRequester.requestStop();
       }
       res.sendStatus(200);
